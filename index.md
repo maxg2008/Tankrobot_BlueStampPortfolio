@@ -78,9 +78,14 @@ Don't forget to place the link of where to buy each component inside the quotati
 
 | **Part** | **Note** | **Price** | **Link** |
 |:--:|:--:|:--:|:--:|
-| Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
-| Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
-| Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
+| Chasis | Used as the general frame of the robot. |$21.59 | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
+| Audrino Uno Clone | Accepts all the code for the robot and runs the actions for the robot accordingly. | $14.98| <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
+| Electronics Kit| Provides extra wires and components that can be used as needed. | $12.79 | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
+| Moters | Used to move the treads of the robot and allow it to move. | $11.98 | |
+| H Bridges | Receives the code for the moters from the Audrino and runs it for the moters. | $8.99 | |
+| DMM | Helps with debugging. | $11.00 | |
+| 9V Barrel Jack | Allows for a 9 volt battery to be connected to the Audrino to power the robot | $5.99 | |
+| 9V Batteries | Powers the robot. | $8.88 | | 
 
 # Other Resources/Examples
 One of the best parts about Github is that you can view how other people set up their own work. Here are some past BSE portfolios that are awesome examples. You can view how they set up their portfolio, and you can view their index.md files to understand how they implemented different portfolio components.
