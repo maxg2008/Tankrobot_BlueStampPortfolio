@@ -47,7 +47,7 @@ For your second milestone, explain what you've worked on since your previous mil
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/CaCazFBhYKs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-My first milestone is the basic design of my robot with both moters running  
+My first milestone is the compleation of the of my base project,compleat with two moters and H-bridge wired to the audrino. The moters are connected to the H-bridge which sends a series of electric pulses to the moters to activate them depending on what it recives from the audrino.I also compleated some sample code that allowed me to see how my robot would operate and to give me a idea of what code to write for my modifications. One problem I faced was that while the moter on the right side ran according to the code, the left moter didn't and instead continuously ran and didn't stop at the designated time in my code. Another problem was that the moters ran in oppisite directions. After test running my code and troubleshooting I found out the problems were due to a falty wire and minor errors in my code.  
 # Schematics 
 Here's where you'll put images of your schematics. [Tinkercad](https://www.tinkercad.com/blog/official-guide-to-tinkercad-circuits) and [Fritzing](https://fritzing.org/learning/) are both great resoruces to create professional schematic diagrams, though BSE recommends Tinkercad becuase it can be done easily and for free in the browser. 
 
