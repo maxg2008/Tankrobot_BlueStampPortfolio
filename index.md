@@ -35,6 +35,7 @@ For your final milestone, explain the outcome of your project. Key details to in
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/uQQ-qNGzbPk?si=od-SM9rmRN0YnEf9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
+
 My second milestone is making my robot controlable via a remote controller and connecting the reciever to the audrino. This was especally difficult since the controller sends values to the audrino through the reciever in a range of 1000-2000 while the moters are only able to take in values in a range of 0-255. Because of this I had to code my robot to read the values from the controller and then map the values into a range of 0-255. Then I had to code the robot to do certin controls depending on the values send by the controller for each of it's inputs. This took a lot of work and troubleshooting both in the code and with the robot itself and is by far the most challenging part of my project.        
 
 # First Milestone
