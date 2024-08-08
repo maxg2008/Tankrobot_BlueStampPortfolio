@@ -1,37 +1,19 @@
 # Remote Controlled Tank Robot 
-Replace this text with a brief description (2-3 sentences) of your project. This description should draw the reader in and make them interested in what you've built. You can include what the biggest challenges, takeaways, and triumphs from completing the project were. As you complete your portfolio, remember your audience is less familiar than you are with all that your project entails!
-
-You should comment out all portions of your portfolio that you have not completed yet, as well as any instructions:
-```HTML 
-<!--- This is an HTML comment in Markdown -->
-<!--- Anything between these symbols will not render on the published site -->
-```
+My project is a remote control robot that started as a base project with the basic robot with to moters connected to a H-Bridge,which controls the moters,and wired it to a audrino. It was coded to go in all directions autonomusly before I wired a reciver to the audrino and coded it to be controled through the remote control as well as turn on 4 LEDs through a switch on the controler. 
 
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
 |:--:|:--:|:--:|:--:|
 | Max G | Rambam | Aerospace Engineering | Junior | 
 
-**Replace the BlueStamp logo below with an image of yourself and your completed project. Follow the guide [here](https://tomcam.github.io/least-github-pages/adding-images-github-pages-site.html) if you need help.**
-
 ![Headstone Image](logo.svg)
   
 # Final Milestone
 
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
-<iframe width="560" height="315" src=": https://www.youtube.com/shorts/IsBcdR4jaYs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-For your final milestone, explain the outcome of your project. Key details to include are:
-- What you've accomplished since your previous milestone
-- What your biggest challenges and triumphs were at BSE
-- A summary of key topics you learned about
-- What you hope to learn in the future after everything you've learned at BSE
-
-
+My final milestone is wiring and coding 4 LEDs into the robot to be turned on or off through a switch. This required me to read the values that are inputed through the switch but didn't require me to change the values to a range of 0-255 like with the other controls because I wasn't controling any moters. This made the coding a lot easier as I was able to find the code to light up the LEDs through the audrino coding platform and I didn't have to create a compleatly new map statment for this control.   
 
 # Second Milestone
 
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/uQQ-qNGzbPk?si=od-SM9rmRN0YnEf9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
