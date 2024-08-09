@@ -28,20 +28,172 @@ My second milestone is making my robot controlable via a remote controller and c
 My first milestone is the compleation of the of my base project,compleat with two moters and H-bridge wired to the audrino. The moters are connected to the H-bridge which sends a series of electric pulses to the moters to activate them depending on what it recives from the audrino.I also compleated some sample code that allowed me to see how my robot would operate and to give me a idea of what code to write for my modifications. One problem I faced was that while the moter on the right side ran according to the code, the left moter didn't and instead continuously ran and didn't stop at the designated time in my code. Another problem was that the moters ran in oppisite directions. After test running my code and troubleshooting I found out the problems were due to a falty wire and minor errors in my code.  
 
 # Schematics 
-![Headstone Image](Untitled copy)
+![Headstone Image](schematic.png)
 # Code
-Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs. 
+
 
 ```c++
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  Serial.println("Hello World!");
+#include <EnableInterrupt.h>
+
+#define SERIAL_PORT_SPEED 9600
+#define RC_NUM_CHANNELS  4
+
+#define LED_pin 2
+#define LED_pin1 3
+#define LED_pin2 11
+#define LED_pin3 12
+
+const int A_1B=5;
+const int A_1A=6;
+const int B_1B=9;
+const int B_1A=10;
+
+#define RC_CH1  0
+#define RC_CH2  1
+#define RC_CH3  2
+#define RC_CH5  3
+
+#define RC_CH1_INPUT  A0
+#define RC_CH2_INPUT  A1
+#define RC_CH3_INPUT  A2
+#define RC_CH5_INPUT  A3
+
+uint16_t rc_values[RC_NUM_CHANNELS];
+uint32_t rc_start[RC_NUM_CHANNELS];
+volatile uint16_t rc_shared[RC_NUM_CHANNELS];
+
+void rc_read_values() {
+  noInterrupts();
+  memcpy(rc_values, (const void *)rc_shared, sizeof(rc_shared));
+  interrupts();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void calc_input(uint8_t channel, uint8_t input_pin) {
+  if (digitalRead(input_pin) == HIGH) {
+    rc_start[channel] = micros();
+  } else {
+    uint16_t rc_compare = (uint16_t)(micros() - rc_start[channel]);
+    rc_shared[channel] = rc_compare;
+  }
+}
 
+void calc_ch1() { calc_input(RC_CH1, RC_CH1_INPUT); }
+void calc_ch2() { calc_input(RC_CH2, RC_CH2_INPUT); }
+void calc_ch3() { calc_input(RC_CH3, RC_CH3_INPUT); }
+void calc_ch5() { calc_input(RC_CH5, RC_CH5_INPUT); }
+
+void setup() {
+  Serial.begin(SERIAL_PORT_SPEED);
+
+  const int A_1B=5;
+  const int A_1A=6;
+  const int B_1B=9;
+  const int B_1A=10;
+
+  pinMode( LED_pin, OUTPUT);
+  pinMode( LED_pin1, OUTPUT);
+  pinMode( LED_pin2, OUTPUT);
+  pinMode( LED_pin3, OUTPUT);
+  pinMode(A_1B,OUTPUT);
+  pinMode(A_1A,OUTPUT);
+  pinMode(B_1B,OUTPUT);
+  pinMode(B_1A,OUTPUT);
+  
+  pinMode(RC_CH1_INPUT, INPUT);
+  pinMode(RC_CH2_INPUT, INPUT);
+  pinMode(RC_CH3_INPUT, INPUT);
+  pinMode(RC_CH5_INPUT, INPUT);
+
+  enableInterrupt(RC_CH1_INPUT, calc_ch1, CHANGE);
+  enableInterrupt(RC_CH2_INPUT, calc_ch2, CHANGE);
+  enableInterrupt(RC_CH3_INPUT, calc_ch3, CHANGE);
+  enableInterrupt(RC_CH5_INPUT, calc_ch5, CHANGE);
+}
+
+void loop(){ 
+  rc_read_values();
+  
+  Serial.print("CH2:"); Serial.print(rc_values[RC_CH2]); Serial.print("\t");
+  Serial.print("CH3:"); Serial.print(rc_values[RC_CH3]); Serial.print("\t");
+  Serial.print("CH5:"); Serial.println(rc_values[RC_CH5]);
+  
+  int newCH2=map(rc_values[RC_CH2], 1000, 1984, 0, 254);
+  int newCH3=map(rc_values[RC_CH3], 1012, 1988, 0, 254);
+  
+  Serial.print("CH2:"); Serial.print(newCH2); Serial.print("\t");
+  Serial.print("CH3:"); Serial.print(newCH3); Serial.print("\t");
+
+  if (newCH2 < 115 and newCH3 > 155) {
+   moveForward();
+ //  Serial.print("moving foward right"); 
+  }
+  else if (newCH2 > 135 and newCH3 < 125) { 
+   moveBackward();
+ //  Serial.print("moving back right"); 
+  }
+ else if (newCH3 > 155 and newCH2 > 135) {  
+   turnRight();
+  //Serial.print("moving foward left");
+ }                      
+ else if (newCH3 < 125 and newCH2 < 115) {  
+  turnLeft();
+  // Serial.print("moving back left"); 
+ }
+ else {
+  stopMove();
+  //Serial.print("stop_left");
+
+ }
+
+ if (rc_values[RC_CH5] < 1600) {
+  digitalWrite(LED_pin, HIGH); 
+  digitalWrite(LED_pin1, HIGH);
+  digitalWrite(LED_pin2, HIGH);
+  digitalWrite(LED_pin3, HIGH); 
+ }
+ else if (rc_values[RC_CH5] > 1600) {
+   digitalWrite(LED_pin, LOW); 
+   digitalWrite(LED_pin1, LOW);
+   digitalWrite(LED_pin2, LOW); 
+   digitalWrite(LED_pin3, LOW); 
+ }
+
+
+} 
+
+ void moveForward(){
+ digitalWrite(A_1B,LOW);
+ digitalWrite(A_1A,HIGH);
+ digitalWrite(B_1B,HIGH);
+ digitalWrite(B_1A,LOW);
+}
+
+void moveBackward(){
+ digitalWrite(A_1B,HIGH);
+ digitalWrite(A_1A,LOW);
+ digitalWrite(B_1B,LOW);
+ digitalWrite(B_1A,HIGH);
+}
+
+void turnRight(){
+ digitalWrite(A_1B,HIGH);
+ digitalWrite(A_1A,LOW);
+ digitalWrite(B_1B,HIGH);
+ digitalWrite(B_1A,LOW);
+}
+
+void turnLeft(){
+ digitalWrite(A_1B,LOW);
+ digitalWrite(A_1A,HIGH);
+ digitalWrite(B_1B,LOW);
+ digitalWrite(B_1A,HIGH);
+}
+
+void stopMove(){
+ digitalWrite(A_1B,LOW);
+ digitalWrite(A_1A,LOW);
+ digitalWrite(B_1B,LOW);
+ digitalWrite(B_1A,LOW);
 }
 ```
 
@@ -58,11 +210,3 @@ void loop() {
 | 9V Barrel Jack | Allows for a 9 volt battery to be connected to the Audrino to power the robot | $5.99 |  <a href="https://www.amazon.com/5pack-Battery-2-1mm-Arduino-Corpco/dp/B01AXIEDX8/ref=sr_1_1?crid=1JMB76PI0E2LI&dib=eyJ2IjoiMSJ9.IxZhvVZzjl3mQ3hiFiq1KUOMvd6aWLHUvR5GaRVLvnLpCADw7ptUhm2ZbswcLA3OH-Srpw2qShEwZO-p10V1B08qcOrt0gncPdblQgSH8a_6PHpQ4-_vInA0lzCwWExsJlLpqvGmmsfJvBWkzMQwK15XFLF91dW2yPDl3lBPwRh1puqCFY1goDEn2acNaXvnhlfi_zHFc0AIek0u-9jV-YAmlN9oJPKaoz-6CPWMNs8_wBzmKTDVV8sra3clevWH3BHfH5dBOAWjjR5Fr-MvPr5f6THNw3WOMLeeKYAuS2E.8BHZWnq0i61MogcAFoJqxvFR64QYbjBONOTda2bvQE4&dib_tag=se&keywords=9v+battery+to+barrel&qid=1718991115&s=electronics&sprefix=9v+battery+to+barrel%2Celectronics%2C86&sr=1-1"> Link </a> |
 | 9V Batteries | Powers the robot. | $8.88 | <a href="https://www.amazon.com/Amazon-Basics-Performance-All-Purpose-Batteries/dp/B00MH4QM1S/ref=sr_1_5_pp?crid=3TQ7ANPH958JM&dib=eyJ2IjoiMSJ9.bmcV2Upj_vpB6G9CFlPPxYAryat512da7ekZjc52HecXSTmtx7PbJ50EgQFPCMqlAxjOUq-tL4vQTpozlHvH89bMwx-HJoyGcdz6EY8HrMxahTiqOXkoP7ewkDcgHoMhmHamdlQfW6FBHO0Gm-DYZZnnMuvEU3qOpemA8PGEvRhEx4-lGaBZhrvls039G1-9SizAW-YRGXZ2fFrdVDlREyyOhAuxXZaE5QqUxWesRQgP9UfGOYaInRWTTPwhDbXFa-RPzGbU1C_u4wq-NMqKBtWEQqR9-cA8O3FYOx3icEY.dtKJmI2T-iCmMM_bYnbiHUWzhKpJDRxS-bBmZIwYFKM&dib_tag=se&keywords=9v%2Bbatteries&qid=1720651326&rdc=1&s=electronics&sprefix=9v%2Bbatteries%2Celectronics%2C105&sr=1-5&th=1"> Link </a> | 
 | Remote Control | Allows for compleate control of the robot's movements. | $54.99 | <a href="https://www.amazon.com/Radiolink-Channels-Transmitter-Controller-Rechargeable/dp/B09BTSJN7P?th=1"> Link </a> |
-
-# Other Resources/Examples
-One of the best parts about Github is that you can view how other people set up their own work. Here are some past BSE portfolios that are awesome examples. You can view how they set up their portfolio, and you can view their index.md files to understand how they implemented different portfolio components.
-- [Example 1](https://trashytuber.github.io/YimingJiaBlueStamp/)
-- [Example 2](https://sviatil0.github.io/Sviatoslav_BSE/)
-- [Example 3](https://arneshkumar.github.io/arneshbluestamp/)
-
-To watch the BSE tutorial on how to create a portfolio, click here.
