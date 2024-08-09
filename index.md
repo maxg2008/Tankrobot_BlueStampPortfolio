@@ -5,7 +5,7 @@ My project is a remote control robot that started as a base project with the bas
 |:--:|:--:|:--:|:--:|
 | Max G | Rambam | Aerospace Engineering | Junior | 
 
-![Headstone Image](logo.svg)
+![Headstone Image](screenshot.jpg)
   
 # Final Milestone
 <iframe width="315" height="560" src="https://www.youtube.com/embed/jXp_xrWOeQg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
