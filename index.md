@@ -8,7 +8,7 @@ My project is a remote control robot that started as a base project with the bas
 ![Headstone Image](logo.svg)
   
 # Final Milestone
-
+<iframe width="315" height="560" src="https://www.youtube.com/embed/jXp_xrWOeQg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 My final milestone is wiring and coding 4 LEDs into the robot to be turned on or off through a switch. This required me to read the values that are inputed through the switch but didn't require me to change the values to a range of 0-255 like with the other controls because I wasn't controling any moters. This made the coding a lot easier as I was able to find the code to light up the LEDs through the audrino coding platform and I didn't have to create a compleatly new map statment for this control.   
 
